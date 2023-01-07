@@ -1,0 +1,275 @@
+Name: Abrar Mojahid Rafi
+ID: 22101593
+Section: 03 
+Semester: Fall 2022
+CSE220 - Lab01
+
+
+#################################################
+#Task 1 ; Shift Left k Cells
+
+def shiftLeft(s, k):
+  arr=s
+  n=0
+  while (n<k):
+    i=0
+    while ( i<(len(arr)-1) ):
+      arr[i]=arr[i+1]
+      i+=1
+    arr[len(arr)-1]=0
+    n+=1
+  print(arr)
+
+#----------------------------------------------
+source=[10,20,30,40,50,60]
+shiftLeft(source,3)
+
+
+
+#################################################
+#Task 2 ; Rotate Left k cells
+
+def rotateLeft(s,k):
+  arr=s
+  n=0
+  while (n<k):
+    value=arr[0]
+    i=0
+    while ( i<(len(arr)-1) ):
+      arr[i]=arr[i+1]
+      i+=1
+    arr[len(arr)-1]=value
+    n+=1
+  print(arr)
+
+#----------------------------------------------
+source=[10,20,30,40,50,60]
+rotateLeft(source,3)
+
+
+
+#################################################
+#Task 3 ; Shift Right k Cells
+
+def shiftRight(s, k):
+  arr=s
+  n=0
+  while (n<k):
+    i=len(arr)-1
+    while (i>0):
+      arr[i]=arr[i-1]
+      i=i-1
+    arr[i]=0
+    n+=1
+  print(arr)
+
+#------------------------------------------
+source=[10,20,30,40,50,60]
+shiftRight(source,3)
+
+
+
+#################################################
+#Task 4 ; Rotate Right k cells
+
+def rotateRight(s, k):
+  arr=s
+  n=0
+  while (n<k):
+    valueOfZeroIndex=arr[len(arr)-1]
+    i=len(arr)-1
+    while (i>0):
+      arr[i]=arr[i-1]
+      i=i-1
+    arr[i]=valueOfZeroIndex
+    n+=1
+  print(arr)
+
+#------------------------------------------
+source=[10,20,30,40,50,60]
+rotateRight(source,3)
+
+
+
+#################################################
+#Task 5 ; Remove an element from an array
+
+def remove(source, size, idx):
+  arr=source
+  i=idx
+  while ( i<(len(arr)-1) ):
+    arr[i]=arr[i+1]
+    i+=1
+  arr[len(arr)-1]=0
+  print(arr)
+
+#------------------------------------------
+source=[10,20,30,40,50,0,0]    #---> output: [ 10,20,40,50,0,0,0]
+remove(source,5,2)
+
+
+
+#################################################
+#Task 6 ; Remove all occurrences of a particular element from an array
+
+def removeAll(s,size, e):
+  arr=s
+  count=0
+  for i in arr:
+    if i==e:
+      count += 1
+  
+  for i in range(count+2): 
+    j=0
+    while (j<len(arr)-1):
+      if arr[j]==e or arr[j]==0:
+        arr[j]=arr[j+1]
+        arr[j+1]=0
+      j+=1
+
+  print(arr)
+
+#------------------------------------------
+source=[10,2,30,2,50,2,2,0,0]
+removeAll(source,7,2)
+
+
+
+#################################################
+#Task 7 ; Splitting an Array
+
+def splittingAnArray(source):
+  var1=0
+  for i in range(len(source)):
+    var1+=source[i]
+    var2=0
+    for j in range(i+1, len(source)):
+      var2+=source[j]
+    if var1==var2:
+      return "true"
+  return "false"
+
+#------------------------------------------
+source = [1, 1, 1, 2, 1]
+print(splittingAnArray(source))
+
+source = [2, 1, 1, 2, 1] 
+print(splittingAnArray(source))
+
+source = [10,3,1,2,10]
+print(splittingAnArray(source))
+
+
+
+#################################################
+#Task 8 ; Array series
+
+def arraySeries(n):
+  var=1
+  loopCounter=0
+  biggerArray=[0]*n 
+  biggerArrayindexCounter=0
+  while (loopCounter < n):
+
+    tempArray=[0]*n
+    smallLoop=0
+    v=n-1
+    i=1
+    while (smallLoop<var):
+      tempArray[v]=i
+      i+=1
+      v-=1
+      smallLoop+=1
+
+    var+=1
+    biggerArray[biggerArrayindexCounter]=tempArray
+    biggerArrayindexCounter+=1
+    loopCounter+=1
+
+
+
+  s=""
+  for i in biggerArray:
+    tempString=""
+    for j in i:
+      tempString=tempString+str(j)+","
+    s=s+tempString[:-1]+" "
+  s="{" + s[:-1] +"}"
+  return s
+
+#------------------------------------------
+n=2
+print(arraySeries(n))
+
+n=3
+print(arraySeries(n))
+
+n=4
+print(arraySeries(n))
+
+
+
+#################################################
+#Task 9 ; Max Bunch Count
+
+def maxBunchCount(s):
+  i=0
+  j=1
+  bunchCount=0
+  while(j<len(source)):
+    if source[i]==source[j]:
+      if bunchCount==0:
+        bunchCount=2
+      else:
+        bunchCount+=1
+    else:
+      bunchCount=0
+    i+=1
+    j+=1
+  return bunchCount
+
+#------------------------------------------
+source =  [1, 2, 2, 3, 4, 4, 4]
+print(maxBunchCount(source))
+
+source = [1,1,2, 2, 1, 1,1,1]
+print(maxBunchCount(source))
+
+
+
+#################################################
+#Task 10 ; Repetition
+
+def repetition(arr):
+  result=False
+  d={}
+  for i in arr:
+    if i not in d:
+      d[i]=1
+    else:
+      d[i]+=1
+
+  emptyArray=[0]*len(d)
+  count=0
+  for i in d:
+    emptyArray[count]=d[i]
+    count+=1
+  
+  c=0
+  while (c<len(emptyArray)):
+    if emptyArray[c] > 1:
+      if emptyArray[c] in emptyArray[c+1 : ]:
+        result=True
+    c+=1
+
+  return result
+
+
+#------------------------------------------
+a = input()[1:-1].split(",")
+arr=[0]*len(a)
+for i in range(len(arr)):
+  arr[i]=(int(a[i]))
+
+print(repetition(arr))
+

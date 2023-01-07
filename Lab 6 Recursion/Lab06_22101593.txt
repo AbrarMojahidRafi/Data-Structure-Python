@@ -1,0 +1,224 @@
+# Name: Abrar Mojahid Rafi
+# ID: 22101593
+# Section: 03
+# Lab No: 06 
+
+
+# Task 1 
+# a) Implement a recursive algorithm to find factorial of n.
+def factorial(n):
+  if n==1:
+    return 1
+  else:
+    return n*factorial(n-1)
+
+print(factorial(4))
+
+
+
+
+
+# b) Implement a recursive algorithm to find the n-th Fibonacci number.
+
+def fibonacci(n):
+  if n==0:
+    return 0
+  elif n==1:
+    return 1
+  elif n > 1:
+    return fibonacci(n-1)+fibonacci(n-2)
+  
+fibonacci(7)
+
+
+
+
+
+# c) Print all the elements of a given array recursively.
+
+def printAllElemOfAnArray(arr,i,lenthOfArr):
+  if i>=lenthOfArr:
+    return
+  print(arr[i])
+  i+=1
+  printAllElemOfAnArray(arr,i,lenthOfArr)
+
+printAllElemOfAnArray([1,2,3,4,5,6,7,8,9],0,9)
+
+
+
+
+# d) Given base and n that are both 1 or more, compute recursively (no loops) the value of base  to the n power, 
+# so powerN(3, 2) is 9 (3 squared). 
+
+def powerN(base,power):
+  if power<1:
+    return 1
+  return base*powerN(base,power-1)
+
+powerN(3,3) 
+
+
+
+
+
+# Task 2
+# a) Implement a recursive algorithm that takes a decimal number n and converts n to its corresponding (you may return as a string) binary number.
+
+def decimalToBinary(decimal):
+  binary = "0"
+  if decimal==0:
+    return binary
+  else:
+    binary=str(decimal%2)
+    return decimalToBinary(decimal//2) + binary 
+
+print(decimalToBinary(4)) 
+
+
+
+
+
+# b) Implement a recursive algorithm to add all the elements of a non-dummy headed singly linked linear list. 
+# Only head of the list will be given as parameter where you may assume every node can contain only integer as its element.
+# Note: you’ll need a Singly Node class for this code.
+
+class Node:
+  def __init__(self, elem, next=None):
+    self.element=elem
+    self.next=next 
+
+n1=Node(1)
+n2=Node(2)
+n1.next=n2
+n3=Node(3)
+n2.next=n3
+n4=Node(4)
+n3.next=n4
+n5=Node(5)
+n4.next=n5
+
+def addElem(head):
+  if head != None:
+    return head.element + addElem(head.next)
+  else:
+    return 0
+
+print(addElem(n1)) 
+
+
+
+
+
+# c) Implement a recursive algorithm which will print all the elements of a non-dummy headed singly linked linear list in reversed order. 
+
+class Node:
+  def __init__(self,val,n=None):
+    self.val=val
+    self.next=n 
+
+n1=Node(10)
+n2=Node(20)
+n1.next=n2
+n3=Node(30)
+n2.next=n3
+n4=Node(40)
+n3.next=n4 
+
+def reversePrint(head):
+  if head==None:
+    return
+  reversePrint(head.next)
+  print(head.val)
+
+print(reversePrint(n1))
+
+
+
+
+
+# Task 3
+
+def hocBuilder(height): 
+  if height==0:
+    return 8
+  else:
+    return 5 + hocBuilder(height-1)
+
+hocBuilder(2)
+
+
+
+
+
+# Task 4
+# a)
+def outer(n):
+  if n>0:
+    x = outer(n-1)
+    print(inner(n))
+    return x
+  else:
+    return ""
+
+def inner(n):
+  if n>0:
+    return str(inner(n-1))+str(n)
+  else:
+    return ""
+
+print(outer(5))
+
+
+
+
+
+# b)
+
+def outer(n,column = 1):
+  if n==0:
+    return 
+  print(" "*(n-1)*2, end="")
+  inner(column)
+  print()
+  outer(n-1, column+1)
+
+def inner(column):
+  if column == 0:
+    return 
+  inner(column-1)
+  print(column, end=" ")
+
+outer(5)
+
+
+
+
+
+# Task 5
+
+class FinalQ: 
+  def print(self,array,idx): 
+    if(idx<len(array)):
+      profit = self.calcProfit(array[idx])  
+      #TO DO 
+      idx = idx + 1
+      print(f'{idx}. Investment: {array[idx-1]}; Profit: {profit}')
+      self.print(array, idx)
+  
+  def calcProfit(self,investment): 
+    #TO DO 
+    if investment<=25000 :
+      return 0.0
+    elif investment<=100000:
+      return 45 + self.calcProfit(investment-1000)
+    else:
+      return 80 + self.calcProfit(investment-1000)
+
+#Tester 
+array=[25000,100000,250000,350000] 
+f = FinalQ() 
+f.print(array,0)
+
+
+

@@ -1,0 +1,184 @@
+# Name: Abrar Mojahid Rafi
+# ID: 22101593
+# Section: 03
+# Lab No: 05 
+
+
+
+
+#################################################################
+########################### Task 01 #############################
+#################################################################
+
+class ArrayStack:
+  def __init__(self,size):
+    self.stack=[0]*size
+    self.idx=-1
+  def push(self, value):
+    if self.idx==len(self.stack)-1:
+      return ("Stack is full")
+    else:
+      self.idx += 1
+      self.stack[self.idx]=value
+  def pop(self):
+    if self.idx==-1:
+      return ("Stack is empty")
+    else:
+      temp=self.stack[self.idx]
+      self.stack[self.idx] = 0
+      self.idx -= 1
+      return temp
+  def peek(self):
+    if self.idx==-1:
+      return ("Stack is empty")
+    else:
+      return self.stack[self.idx]
+
+
+
+
+
+def parenthesisBalancing (exp):
+  createStack = ArrayStack(len(exp))
+  openingBrackets = "({["
+  closingBrackets = ")}]"
+
+  errorBracket=None
+  errorIdx=0
+  flag=False
+  for i in range(len(exp)):
+    if exp[i] in openingBrackets:
+      createStack.push(exp[i])
+    elif exp[i] in closingBrackets:
+      returnItem=createStack.pop()
+      if (returnItem =="(" and exp[i]==")") or (returnItem =="{" and exp[i]=="}") or (returnItem =="[" and exp[i]=="]"):
+        flag=True
+      else:
+        flag=False
+        if returnItem == "Stack is empty":
+          errorBracket=exp[i]
+          errorIdx = i
+        else:
+          errorBracket = returnItem
+          c=0
+          for i in exp:
+            if i==returnItem:
+              errorIdx = c
+              break
+            c+=1
+        break
+  
+  if flag ==False:
+    print("This expression is NOT correct.")
+    if errorBracket in "({[" :
+      print(f"Error at character # {errorIdx+1}. '{errorBracket}'- not closed.")
+    else:
+      print(f"Error at character # {errorIdx+1}. '{errorBracket}'- not opened.")
+  else:
+    print("This expression is correct.")
+      
+
+
+parenthesisBalancing("1+2*(3/4)")
+parenthesisBalancing("1+2*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14")
+parenthesisBalancing("1+2*[3*3+{4–5(6(7/8/9)+10)}–11+(12*8)/{13+13}]+14")
+parenthesisBalancing("1+2]*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14") 
+
+
+
+
+
+#################################################################
+########################### Task 02 #############################
+#################################################################
+
+class Node:
+  def __init__(self, e, n=None):
+    self.element = e
+    self.next = n 
+
+class ListStack:
+  def __init__(self):
+    self.head = None
+  def peek(self):
+    if (self.head == None):
+      return ("Stack is empty")
+    else:
+      cn=self.head
+      while(cn!=None):
+        if cn.next==None:
+          return cn.element
+        cn=cn.next
+  def pop(self):
+    if (self.head is None):
+      return ("Stack is empty")
+    elif self.head.next==None:
+      temp=self.head.element 
+      self.head=None
+      return temp
+    else:
+      cn=self.head
+      while(cn!=None):
+        if cn.next.next==None:
+          temp=cn.next.element
+          cn.next=None
+          return temp 
+        cn=cn.next
+  def push(self, v):
+    newItem = Node(v, None)
+    if (self.head is None):
+      self.head = newItem
+    else:
+      cn=self.head
+      while(cn.next!=None):
+        cn=cn.next
+      cn.next=newItem
+
+
+
+
+
+def parenthesisBalancing(exp):
+  createStack = ListStack()
+  openingBrackets = "({["
+  closingBrackets = ")}]"
+
+  errorBracket=None
+  errorIdx=0
+  flag=False
+  for i in range(len(exp)):
+    if exp[i] in openingBrackets:
+      createStack.push(exp[i])
+    elif exp[i] in closingBrackets:
+      returnItem=createStack.pop()
+      if (returnItem =="(" and exp[i]==")") or (returnItem =="{" and exp[i]=="}") or (returnItem =="[" and exp[i]=="]"):
+        flag=True
+      else:
+        flag=False
+        if returnItem == "Stack is empty":
+          errorBracket=exp[i]
+          errorIdx = i
+        else:
+          errorBracket = returnItem
+          c=0
+          for i in exp:
+            if i==returnItem:
+              errorIdx = c
+              break
+            c+=1
+        break
+
+  if flag ==False:
+    print("This expression is NOT correct.")
+    if errorBracket in "({[" :
+      print(f"Error at character # {errorIdx+1}. '{errorBracket}'- not closed.")
+    else:
+      print(f"Error at character # {errorIdx+1}. '{errorBracket}'- not opened.")
+  else:
+    print("This expression is correct.") 
+
+
+parenthesisBalancing("1+2*(3/4)")
+parenthesisBalancing("1+2*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14")
+parenthesisBalancing("1+2*[3*3+{4–5(6(7/8/9)+10)}–11+(12*8)/{13+13}]+14")
+parenthesisBalancing("1+2]*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14")
